@@ -19,7 +19,8 @@
                 <!-- https://getbootstrap.com/docs/5.3/components/list-group/#links-and-buttons -->
                 <div class="list-group">
                     {% for category in categories %}
-                        <a href="#" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                        <button class="list-group-item list-group-item-action" hx-target="#productList" hx-swap="innerHTML"             
+                            hx-get="/product/bycat/{{  category.id }}" hx-trigger="click">{{ category.name }}</button>                       
                     {% endfor %}
                     </div>
 
@@ -54,7 +55,11 @@
                         <legend>Add a new product</legend>
                         <div class="mb-3">
                             <label for="category_id" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="category_id" name="category_id" required>
+                            <select class="form-select" id="category_id" name="category_id">
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
